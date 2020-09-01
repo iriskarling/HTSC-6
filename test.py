@@ -9,17 +9,13 @@ def transferOp(string):
     return string
 
 if __name__ == "__main__":
-    string = "(companyName == \"HTSC\") OR ((AGE >30) AND ( SEX != \"MALE\"))"
-    teststring = "(A = a)+((B>20)*(C!=A))"
-    teststring = "^(A=A)*^((b=a)+(a-c))"
-    
-    teststring = "(companyName == \'HTSC\') OR ((AGE >30) AND ( SEX != \'MALE\'))"
-    teststring ="NOT(CompanyName =\"Htsc\")AND NOT((Age = 30 )AND(SEX = \'Man\'))"
+    teststring = "(companyName == \"HTSC\") OR ((AGE >30) AND ( SEX != \"MALE\"))"
+    teststring = "NOT(companyName == \'HTSC\')"
     teststring = teststring.replace(" ","")
     transfer_res = transferOp(teststring)
     RPN = rpnInterpreter(transfer_res)
     res = RPN.transfer()
-    print(res)
+    print("the result of RPN:",res)
     SQL = SQLInterpreter(res,"Customer")
     final_res = SQL.transfer()
-    print(final_res)
+    print("sql result:",final_res)

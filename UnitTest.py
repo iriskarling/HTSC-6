@@ -42,10 +42,25 @@ def test_Case3():
     final_res = SQL.transfer()
     assert final_res == "select * from Customer where (companyName='HTSC') AND ((AGE>30) OR (SEX!='FEMALE'))"
     
-    
+def test_Case4():
+    teststring = "(companyName == \'HTSC\')"
+    teststring = teststring.replace(" ","")
+    transfer_res = transferOp(teststring)
+    RPN = rpnInterpreter(transfer_res)
+    res = RPN.transfer()
+    SQL = SQLInterpreter(res,"Customer")
+    final_res = SQL.transfer()
+    assert final_res == "select * from Customer where companyName='HTSC'"
 
-    
-
+def test_Case5():
+    teststring = "NOT(companyName == \'HTSC\')"
+    teststring = teststring.replace(" ","")
+    transfer_res = transferOp(teststring)
+    RPN = rpnInterpreter(transfer_res)
+    res = RPN.transfer()
+    SQL = SQLInterpreter(res,"Customer")
+    final_res = SQL.transfer()
+    assert final_res == "select * from Customer where NOT (companyName='HTSC')"
 if __name__ == "__main__":
     
     pytest.main(["UnitTest.py"])
